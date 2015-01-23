@@ -313,7 +313,6 @@ void PauselessCollectorThread::Collect() {
                 } else if (!nonEmptyWorklists->empty()) {
                     nonEmptyWorklists->back()->MoveWork(&worklist);
                     nonEmptyWorklists->pop_back();
-                    //numberOfGCThreadsDoneMarking--;
                     pthread_mutex_unlock(&nonEmptyWorklistsMutex);
                 }
                 checkpointFinished = false;

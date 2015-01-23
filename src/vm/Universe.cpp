@@ -137,6 +137,8 @@ void Universe::Quit(long err) {
             << endl;
 #if GC_TYPE!=PAUSELESS
     cout << "Number of GC cycles performed: " << _HEAP->GetNumberOfCycles() << endl;
+#else
+    cout <<  "Number of GC cycles performed: " << _HEAP->GetCycle() << endl;
 #endif
 #ifdef GENERATE_INTEGER_HISTOGRAM
     std::string file_name_hist = std::string(bm_name);

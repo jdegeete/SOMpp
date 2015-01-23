@@ -93,7 +93,7 @@ FORCE_INLINE typename T::Loaded* Untag(T* reference) {
 }
 
 template<typename T>
-inline typename T::Stored* WriteBarrier(T* reference) {
+__attribute__((always_inline)) inline typename T::Stored* WriteBarrier(T* reference) {
     if (reference == nullptr)
         return (typename T::Stored*) nullptr;
     if (_UNIVERSE->GetInterpreter()->GetExpectedNMT())
@@ -104,12 +104,12 @@ inline typename T::Stored* WriteBarrier(T* reference) {
 
 /*
 template<typename T>
-inline typename T::Stored* WriteBarrier(T* reference) {
+__attribute__((always_inline)) inline typename T::Stored* WriteBarrier(T* reference) {
     return (typename T::Stored*) reference;
 } */
 
 template<typename T>
-inline typename T::Stored* WriteBarrierForGCThread(T* reference) {
+__attribute__((always_inline)) inline typename T::Stored* WriteBarrierForGCThread(T* reference) {
     if (reference == nullptr)
         return (typename T::Stored*) nullptr;
     if (_HEAP->GetGCThread()->GetExpectedNMT())
@@ -120,7 +120,7 @@ inline typename T::Stored* WriteBarrierForGCThread(T* reference) {
 
 /*
 template<typename T>
-inline typename T::Loaded* ReadBarrier(T** referenceHolder, bool rootSetMarking = false) {
+__attribute__((always_inline)) inline typename T::Loaded* ReadBarrier(T** referenceHolder, bool rootSetMarking = false) {
     return (typename T::Loaded*) *referenceHolder;
 } */
 
