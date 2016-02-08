@@ -40,6 +40,8 @@
 
 #include "../memory/Heap.h"
 
+#include "UniverseFactory.h"
+
 class SourcecodeCompiler;
 
 // for runtime debug
@@ -74,6 +76,9 @@ extern GCSymbol* symbolIfFalse;
 
 using namespace std;
 class Universe {
+    
+    friend class UniverseFactory;
+    
 public:
     inline Universe* operator->();
 
@@ -91,26 +96,27 @@ public:
     VMSymbol* SymbolFor(const StdString&);
     VMSymbol* SymbolForChars(const char*);
 
-    //VMObject instanciation methods. These should probably be refactored to a new class
-    VMArray* NewArray(long) const;
-    VMArray* NewArrayList(ExtendedList<vm_oop_t>& list) const;
-    VMArray* NewArrayList(ExtendedList<VMInvokable*>& list) const;
-    VMArray* NewArrayList(ExtendedList<VMSymbol*>& list) const;
-    VMArray* NewArrayFromStrings(const vector<StdString>&) const;
-    VMBlock* NewBlock(VMMethod*, VMFrame*, long);
-    VMClass* NewClass(VMClass*) const;
-    VMFrame* NewFrame(VMFrame*, VMMethod*) const;
-    VMMethod* NewMethod(VMSymbol*, size_t, size_t) const;
-    VMObject* NewInstance(VMClass*) const;
-    VMInteger* NewInteger(int64_t) const;
+    //VMObject instanciation methods. These methods are all inlined
+    VMArray* NewArray(long size) const { return factory.NewArray(size); };
+    VMArray* NewArrayList(ExtendedList<vm_oop_t>& list) const { return factory.NewArrayList(list); };
+    VMArray* NewArrayList(ExtendedList<VMInvokable*>& list) const { return factory.NewArrayList(list); };
+    VMArray* NewArrayList(ExtendedList<VMSymbol*>& list) const { return factory.NewArrayList(list); };
+    VMArray* NewArrayFromStrings(const vector<StdString>& strings) const { return factory.NewArrayFromStrings(strings); };
+    VMBlock* NewBlock(VMMethod* method, VMFrame* context, long arguments) { return factory.NewBlock(method, context, arguments); };
+    VMClass* NewClass(VMClass* classOfClass) const { return factory.NewClass(classOfClass); };
+    VMFrame* NewFrame(VMFrame* previousFrame, VMMethod* method) const { return factory.NewFrame(previousFrame, method); };
+    VMMethod* NewMethod(VMSymbol* signature, size_t numberOfBytecodes, size_t numberOfConstants) const { return factory.NewMethod(signature, numberOfBytecodes, numberOfConstants); };
+    VMObject* NewInstance(VMClass* classOfInstance) const { return factory.NewInstance(classOfInstance); };
+    VMInteger* NewInteger(int64_t value) const { return factory.NewInteger(value); };
+    VMDouble* NewDouble(double value) const { return factory.NewDouble(value); };
+    VMClass* NewMetaclassClass() const { return factory.NewMetaclassClass(); };
+    VMString* NewString(const StdString& str) const { return factory.NewString(str); };
+    VMSymbol* NewSymbol(const StdString& str) { return factory.NewSymbol(str); };
+    VMString* NewString(const char* str) const { return factory.NewString(str); };
+    VMSymbol* NewSymbol(const char* str) { return factory.NewSymbol(str); };
+    VMClass* NewSystemClass() const { return factory.NewSystemClass(); };
+    
     void WalkGlobals(walk_heap_fn);
-    VMDouble* NewDouble(double) const;
-    VMClass* NewMetaclassClass(void) const;
-    VMString* NewString(const StdString&) const;
-    VMSymbol* NewSymbol(const StdString&);
-    VMString* NewString(const char*) const;
-    VMSymbol* NewSymbol(const char*);
-    VMClass* NewSystemClass(void) const;
 
     void InitializeSystemClass(VMClass*, VMClass*, const char*);
 
@@ -141,6 +147,8 @@ public:
     static bool IsValidObject(vm_oop_t obj);
 
 private:
+    UniverseFactory factory;
+    
     vector<StdString> handleArguments(long argc, char** argv);
     long getClassPathExt(vector<StdString>& tokens, const StdString& arg) const;
 
@@ -154,9 +162,13 @@ private:
     void initialize(long, char**);
 
     long heapSize;
+    
     map<GCSymbol*, gc_oop_t> globals;
     map<long, GCClass*> blockClassesByNoOfArgs;
     vector<StdString> classPath;
+    
+    map<string, GCSymbol*> symbolsMap;
+
 
     Interpreter* interpreter;
 };

@@ -106,6 +106,7 @@
 		0A67EA9F19ACDB4600830E3B /* Smalltalk in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A18873E1832C62100A2CBCA /* Smalltalk */; };
 		0A67EAA119ACDB4600830E3B /* TestSuite in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A1887401832C62100A2CBCA /* TestSuite */; };
 		0A67EAA219ACDD1B00830E3B /* GenerationalHeap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A1887231832C10E00A2CBCA /* GenerationalHeap.cpp */; };
+		90CC3AB91C68E50600A53C33 /* UniverseFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90CC3AB81C68E50600A53C33 /* UniverseFactory.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,6 +282,8 @@
 		3F5203560FA6624C00E75857 /* VMString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMString.h; sourceTree = "<group>"; };
 		3F5203570FA6624C00E75857 /* VMSymbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VMSymbol.cpp; sourceTree = "<group>"; };
 		3F5203580FA6624C00E75857 /* VMSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMSymbol.h; sourceTree = "<group>"; };
+		90CC3AB71C68E43300A53C33 /* UniverseFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniverseFactory.h; sourceTree = "<group>"; };
+		90CC3AB81C68E50600A53C33 /* UniverseFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UniverseFactory.cpp; sourceTree = "<group>"; };
 		E18AE2800FB1C44700EE6540 /* Array.som */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Array.som; sourceTree = "<group>"; };
 		E18AE2810FB1C44700EE6540 /* BigInteger.som */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BigInteger.som; sourceTree = "<group>"; };
 		E18AE2820FB1C44700EE6540 /* Block.som */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Block.som; sourceTree = "<group>"; };
@@ -586,6 +589,8 @@
 				3F5203310FA6624C00E75857 /* Shell.h */,
 				3F5203320FA6624C00E75857 /* Universe.cpp */,
 				3F5203330FA6624C00E75857 /* Universe.h */,
+				90CC3AB81C68E50600A53C33 /* UniverseFactory.cpp */,
+				90CC3AB71C68E43300A53C33 /* UniverseFactory.h */,
 			);
 			path = vm;
 			sourceTree = "<group>";
@@ -917,6 +922,7 @@
 				0A1886E21832BCC800A2CBCA /* SourcecodeCompiler.cpp in Sources */,
 				0A1886FC1832BCF500A2CBCA /* VMClass.cpp in Sources */,
 				0A1886DF1832BCC800A2CBCA /* Lexer.cpp in Sources */,
+				90CC3AB91C68E50600A53C33 /* UniverseFactory.cpp in Sources */,
 				0A1886F51832BCED00A2CBCA /* Shell.cpp in Sources */,
 				0A1887321832C10E00A2CBCA /* CopyingHeap.cpp in Sources */,
 				0A1887061832BCFA00A2CBCA /* VMSymbol.cpp in Sources */,

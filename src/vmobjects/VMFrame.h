@@ -31,7 +31,7 @@
 class Universe;
 
 class VMFrame: public VMObject {
-    friend class Universe;
+    friend class UniverseFactory;
 public:
     typedef GCFrame Stored;
     
